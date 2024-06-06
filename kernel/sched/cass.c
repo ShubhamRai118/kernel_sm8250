@@ -319,11 +319,13 @@ static int cass_select_task_rq(struct task_struct *p, int prev_cpu,
 	return cass_best_cpu(p, prev_cpu, sync, rt);
 }
 
+#ifndef CONFIG_PREEMPT_RT_FULL
 static int cass_select_task_rq_fair(struct task_struct *p, int prev_cpu,
 				    int sd_flag, int wake_flags)
 {
 	return cass_select_task_rq(p, prev_cpu, wake_flags, false);
 }
+#endif
 
 int cass_select_task_rq_rt(struct task_struct *p, int prev_cpu,
  			   int sd_flag, int wake_flags)
