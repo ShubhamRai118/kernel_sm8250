@@ -2206,7 +2206,6 @@ int mhi_debugfs_mhi_regdump_show(struct seq_file *m, void *d)
 int mhi_debugfs_mhi_states_show(struct seq_file *m, void *d)
 {
 	struct mhi_controller *mhi_cntrl = m->private;
-	struct mhi_link_info *cur_info = &mhi_cntrl->mhi_link_info;
 
 	return 0;
 }
