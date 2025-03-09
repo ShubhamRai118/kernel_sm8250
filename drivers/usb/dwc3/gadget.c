@@ -1734,18 +1734,11 @@ static int __dwc3_gadget_ep_queue(struct dwc3_ep *dep, struct dwc3_request *req)
 	return 0;
 }
 
-static void dwc3_gadget_wakeup_irq_work(struct irq_work *work)
-{
-	struct dwc3 *dwc = container_of(work, typeof(*dwc), wakeup_irq_work);
-
-	schedule_work(&dwc->wakeup_work);
-}
-
 static int dwc3_gadget_wakeup(struct usb_gadget *g)
 {
 	struct dwc3	*dwc = gadget_to_dwc(g);
 
-	irq_work_queue(&dwc->wakeup_irq_work);
+	schedule_work(&dwc->wakeup_work);
 	return 0;
 }
 
@@ -4337,7 +4330,6 @@ int dwc3_gadget_init(struct dwc3 *dwc)
 	dwc->irq_gadget = irq;
 
 	INIT_WORK(&dwc->wakeup_work, dwc3_gadget_wakeup_work);
-	init_irq_work(&dwc->wakeup_irq_work, dwc3_gadget_wakeup_irq_work);
 
 	dwc->ep0_trb = dma_alloc_coherent(dwc->sysdev,
 					  sizeof(*dwc->ep0_trb) * 2,
