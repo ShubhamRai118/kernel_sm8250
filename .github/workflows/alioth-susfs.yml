@@ -109,7 +109,7 @@ jobs:
         if [ -e "dtbo.img" ]; then
           cp -f dtbo.img AnyKernel3/alioth-aosp-dtbo.img
         fi
-        name=Dark_Kernel_FD-stk-susfs-${{ github.event.inputs.CODENAME }}-${{ github.run_id }}.zip
+        name=Matrixx_X-stk-susfs-${{ github.event.inputs.CODENAME }}-${{ github.run_id }}.zip
         cd AnyKernel3
         zip -q -r $name *
         mv $name ../
